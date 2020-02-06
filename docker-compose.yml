@@ -1,0 +1,19 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    ports:
+      - '3306'
+    environment:
+      - MYSQL_DATABASE=app
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_USER=root
+  web:
+    build: .
+    environment:
+      - DJANGO_SETTINGS_MODULE=settings
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/dev-ops-app
+    ports:
+      - "8000:8000"
